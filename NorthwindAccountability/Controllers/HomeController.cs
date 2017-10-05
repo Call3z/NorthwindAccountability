@@ -34,23 +34,64 @@ namespace NorthwindAccountability.Controllers
             partyInformation2.CompanyName = "Starcounter";
             party2.PartyInformation = partyInformation2;
 
-            var employee = new AccountabilityType();
-            employee.Name = "Employee";
+            var party3 = new Party();
+            var partyInformation3 = new PartyInformation();
+            partyInformation3.CompanyName = "Shipman";
+            partyInformation3.FirstName = "Johan";
+            party3.PartyInformation = partyInformation3;
+
+            var supplier = new AccountabilityType();
+            supplier.Name = "Supplier";
+
+            var shipper = new AccountabilityType();
+            shipper.Name = "Shipper";
 
             var accountability = new Accountability();
-            accountability.Commissioner = party2;
-            accountability.AccountabilityType = employee;
-            accountability.Responsible = party;
+            accountability.Commissioner = party;
+            accountability.AccountabilityType = supplier;
+            accountability.Responsible = party2;
 
+            var accountability2 = new Accountability();
+            accountability2.Commissioner = party2;
+            accountability2.Responsible = party3;
+            accountability2.AccountabilityType = shipper;
+
+
+
+            var category = new Category();
+            category.Description = "Fiskespön";
+            category.Name = "Fiskespö";
+
+            var product = new Product();
+            product.Party = party2;
+            product.Category = category;
+            product.Name = "Superfiskespö";
+
+            var order = new Order();
+            order.OrderDate = DateTime.Now;
+            order.RequiredDate = DateTime.Now;
+            order.ShippedDate = DateTime.Now;
+            order.ShipperAccountability = accountability2;
+            order.SupplierAccountability = accountability;
+
+            var orderDetail = new OrderDetail();
+            orderDetail.Product = product;
+            orderDetail.Order = order;
 
 
             _context.Parties.Add(party);
+            _context.Parties.Add(party2);
+            _context.Parties.Add(party3);
             _context.Accountabilities.Add(accountability);
-            _context.AccountabilityTypes.Add(employee);
-
+            _context.Accountabilities.Add(accountability2);
+            _context.AccountabilityTypes.Add(supplier);
+            _context.AccountabilityTypes.Add(shipper);
+            _context.Orders.Add(order);
+            _context.OrderDetails.Add(orderDetail);
             _context.SaveChanges();
 
-            var test = _context.Parties.ToList();
+            var test = _context.Orders.ToList();
+
             return View();
         }
 

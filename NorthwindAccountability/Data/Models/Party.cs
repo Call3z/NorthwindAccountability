@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Threading.Tasks;
 
 namespace NorthwindAccountability.Data.Models
@@ -12,5 +13,6 @@ namespace NorthwindAccountability.Data.Models
         public Guid PartyInformationId { get; set; }
         public List<Accountability> CommisionerAccountabilities { get; set; }
         public List<Accountability> ResponsibleAccountabilities { get; set; }
+        public List<Product> Products { get; set; }
     }
 }
